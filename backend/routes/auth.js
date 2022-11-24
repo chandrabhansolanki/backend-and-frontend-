@@ -5,8 +5,9 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const { body, validationResult } = require("express-validator");
 const JWT_SECRET = "MYNAMEISCHANDRABHANSINGHSOLANKI";
+var fetchuser = require('../middleware/fetchuser')
 
-// Create a User using :POST "/api/auth/createuser" Doesn't required Auth
+//Route:1 Create a User using :POST "/api/auth/createuser" Doesn't required Auth
 router.post(
   "/createuser",
   [
@@ -67,7 +68,7 @@ router.post(
   }
 );
 
-//Authenticate user   :POST "/api/auth/login" Doesn't required Auth
+//Route:2 Authenticate user   :POST "/api/auth/login" Doesn't required Auth
 
 router.post(
   "/login",
@@ -116,4 +117,19 @@ router.post(
     }
   }
 );
+
+// Route:3 get logedin user details using :POST "/api/auth/getuser" LoginRequired
+
+router.post('/getuser',fetchuser, async(req,res) => {
+    try{
+      userId = req.user.id
+      const user = await User.findById(userId).select("-password")
+      res.send(user)
+    }catch(err){
+
+      res.status(500).send("Internal Server   feer Error" + err) 
+    }
+})
+
+
 module.exports = router;
