@@ -124,12 +124,10 @@ router.post('/getuser',fetchuser, async(req,res) => {
     try{
       userId = req.user.id
       const user = await User.findById(userId).select("-password")
-      res.send(user)
+      res.status(200).send({user, success: true})
     }catch(err){
-
-      res.status(500).send("Internal Server   feer Error" + err) 
+      res.status(500).send("Internal Server Error") 
     }
 })
-
 
 module.exports = router;
