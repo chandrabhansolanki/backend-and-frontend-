@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 const { Schema } = mongoose;
 
 const NotesSchema = new Schema({
-  user: {
+  user: { // it will give the data or info of particular user.
     type : mongoose.Schema.Types.ObjectId,
     ref:"user"
   },
