@@ -18,7 +18,7 @@ const SignUp = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     const { name, email, password } = input;
-    fetch("localhost:5000/api/auth/createuser", {
+    fetch("http://localhost:5000/api/auth/createuser", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -35,19 +35,25 @@ const SignUp = () => {
 
   return (
     <>
-      <div>
-        <label>Name</label>
-        <input type="text" name="name" onChange={InputChangeHandler} />
-      </div>
-      <div>
-        <label>Email</label>
-        <input type="email" name="email" onChange={InputChangeHandler} />
-      </div>
-      <div>
-        <label>Password</label>
-        <input type="password" name="password" onChange={InputChangeHandler} />
-      </div>
-      <button onClick={submitHandler}>SignUp</button>
+      <form onSubmit={submitHandler}>
+        <div>
+          <label>Name</label>
+          <input type="text" name="name" onChange={InputChangeHandler} />
+        </div>
+        <div>
+          <label>Email</label>
+          <input type="email" name="email" onChange={InputChangeHandler} />
+        </div>
+        <div>
+          <label>Password</label>
+          <input
+            type="password"
+            name="password"
+            onChange={InputChangeHandler}
+          />
+        </div>
+        <button >SignUp</button>
+      </form>
     </>
   );
 };
