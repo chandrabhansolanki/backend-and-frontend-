@@ -51,7 +51,8 @@ router.post(
       const authtoken = jwt.sign(data, JWT_SECRET);
       // console.log(data);
       // console.log(authtoken);
-      res.send({ token: authtoken });
+
+      res.status(200).send({ token: authtoken, success:true, message: "User is Created" });
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Internal Server Error ");
@@ -89,20 +90,19 @@ router.post(
     }
 
     const { email, password } = req.body;
-    // console.log(req.body);
     try {
       let user = await User.findOne({ email });
       // console.log(user);
       if (!user) {
         return res
           .status(400)
-          .json({ error: "please try to login with right credential" });
+          .json({ error: "please try to login with right credential",success: false  });
       }
       const passwordCompare =await bcrypt.compare(password, user.password);
       if (!passwordCompare) {
         return res
           .status(400)
-          .json({ error: "please try to login with right credential" });
+          .json({ error: "please try to login with right credential",success: false });
       }
 
       const data = {
@@ -111,7 +111,7 @@ router.post(
         },
       };
       const authtoken = jwt.sign(data, JWT_SECRET);
-      res.send({token:authtoken})
+      res.status(200).send({token:authtoken, success: true, message: "User Logged In"})
     } catch (error) {
       res.status(500).send("Internal Server Error")
     }
