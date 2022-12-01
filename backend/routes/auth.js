@@ -5,7 +5,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const { body, validationResult } = require("express-validator");
 const JWT_SECRET = "MYNAMEISCHANDRABHANSINGHSOLANKI";
-var fetchuser = require('../middleware/fetchuser')
+var fetchuser = require("../middleware/fetchuser");
 
 //Route:1 Create a User using :POST "/api/auth/createuser" Doesn't required Auth
 router.post(
@@ -52,7 +52,9 @@ router.post(
       // console.log(data);
       // console.log(authtoken);
 
-      res.status(200).send({ token: authtoken, success:true, message: "User is Created" });
+      res
+        .status(200)
+        .send({ token: authtoken, success: true, message: "User is Created" });
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Internal Server Error ");
@@ -96,38 +98,58 @@ router.post(
       if (!user) {
         return res
           .status(400)
-          .json({ error: "please try to login with right credential",success: false  });
+          .json({
+            error: "please try to login with right credential",
+            success: false,
+          });
       }
-      const passwordCompare =await bcrypt.compare(password, user.password);
+      const passwordCompare = await bcrypt.compare(password, user.password);
       if (!passwordCompare) {
         return res
           .status(400)
-          .json({ error: "please try to login with right credential",success: false });
+          .json({
+            error: "please try to login with right credential",
+            success: false,
+          });
       }
 
-      const data = {
+      const datas = {
         user: {
           id: user.id,
         },
       };
-      const authtoken = jwt.sign(data, JWT_SECRET);
-      res.status(200).send({token:authtoken, success: true, message: "User Logged In"})
+      const authtoken = jwt.sign(datas, JWT_SECRET);
+      const data = {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        date: user.date,
+        token:authtoken
+      };
+
+      res
+        .status(200)
+        .send({
+          data,
+          success: true,
+          message: `${user?.name} Logged In Successfully`,
+        });
     } catch (error) {
-      res.status(500).send("Internal Server Error")
+      res.status(500).send("Internal Server Error");
     }
   }
 );
 
 // Route:3 get logedin user details using :POST "/api/auth/getuser" LoginRequired
 
-router.post('/getuser',fetchuser, async(req,res) => {
-    try{
-      userId = req.user.id
-      const user = await User.findById(userId).select("-password")
-      res.status(200).send({user, success: true})
-    }catch(err){
-      res.status(500).send("Internal Server Error") 
-    }
-})
+router.post("/getuser", fetchuser, async (req, res) => {
+  try {
+    userId = req.user.id;
+    const user = await User.findById(userId).select("-password");
+    res.status(200).send({ user, success: true });
+  } catch (err) {
+    res.status(500).send("Internal Server Error");
+  }
+});
 
 module.exports = router;

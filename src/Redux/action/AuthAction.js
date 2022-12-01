@@ -1,21 +1,12 @@
 import { SIGN_UP, LOGIN_USER } from "../action Type/actionType";
+import loginApi from "../../api/Manager/loginApi";
+import signUpApi from "../../api/Manager/signUpApi";
 
 export const signUpAction = (data) => {
   const { name, email, password } = data;
   return async (dispatch) => {
     try {
-      const res = await fetch("http://localhost:5000/api/auth/createuser", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-        }),
-      });
-      const json = await res.json();
+      const json = await signUpApi(data);
       dispatch(signUpConfirmedAction(json));
     } catch (error) {
       console.log(error);
@@ -31,21 +22,10 @@ export const signUpConfirmedAction = (data) => {
 };
 
 export const loginAction = (data) => {
-    const {email, password} = data
   return async (dispatch) => {
 try{
-    const res =await fetch("http://localhost:5000/api/auth/login", {
-        method:"POST",
-        headers:{
-            "content-type": "application/json"
-        },
-        body: JSON.stringify({
-            email, password
-        })
-    })
-    const json = await res.json();
-    console.log(json);
-    dispatch(loginConfirmdAction(json))
+    const res =await loginApi(data)
+    dispatch(loginConfirmdAction(res))
 }catch(err){
     console.log(err.message);
 }
