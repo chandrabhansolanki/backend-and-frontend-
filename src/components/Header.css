@@ -1,0 +1,6 @@
+.RightNavbar ul li a:hover,
+.RightNavbar ul li a:active,
+.RightNavbar ul li a.active {
+	color: #95bcf0;
+	border: 1px solid #95bcf0;
+}

@@ -21,14 +21,14 @@ export const signUpConfirmedAction = (data) => {
   };
 };
 
-export const loginAction = (data) => {
+export const loginAction = (data, navigate) => {
   return async (dispatch) => {
-try{
-    const res =await loginApi(data)
-    dispatch(loginConfirmdAction(res))
-}catch(err){
-    console.log(err.message);
-}
+    const res = await loginApi(data);
+    if (res.data.success) {
+      localStorage.setItem("token", `${res?.data?.data?.token}`);
+      dispatch(loginConfirmdAction(res));
+      return navigate("/home");
+    }
   };
 };
 

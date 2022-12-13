@@ -8,8 +8,6 @@ const AuthReducer = (state = initialState, action) => {
       return {
         ...state,
       };
-
-
       case LOGIN_USER:
         return {
             ...state,
