@@ -27,10 +27,10 @@ export const getAllNotesConfirmed = (data) => {
   };
 };
 
-
-export const addNewNotes = () => {
-  return async() => {
-const res = await AddNotesApi()
+export const addNewNotes = (notes) => {
+  return async(dispatch) => {
+  const res = await AddNotesApi(notes)
+  dispatch(addNewNotesConfirmed(res?.data))
   }
 }
 

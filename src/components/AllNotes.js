@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getAllNotes } from "../Redux/action/NotesAction";
+import { getAllNotes, addNewNotes } from "../Redux/action/NotesAction";
 import { useDispatch } from "react-redux";
 import Header from "./Header";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,7 @@ const AllNotes = () => {
   const dispatch = useDispatch();
   const [notes, setNotes] = useState({
     title: "",
-    descrption: "",
+    description: "",
     tag: "",
   });
 
@@ -30,7 +30,7 @@ const AllNotes = () => {
 
   const SubmitNotes = (e) => {
     e.preventDefault()
-    dispatch()
+    dispatch(addNewNotes(notes))
   }
 
   return (
@@ -58,8 +58,8 @@ const AllNotes = () => {
             type="text"
             className="form-control"
             id="exampleInputPassword1"
-            name="descrption"
-            value={notes.descrption}
+            name="description"
+            value={notes.description}
             onChange={addNotes}
           />
         </div>

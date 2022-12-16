@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import NotesItem from "./NotesItem";
 const Notes = () => {
   const state = useSelector((state) => state?.NotesReducer?.AllNotes);
-  console.log(state, "fsfee");
+  
   return (
     <>
      <div className="row">

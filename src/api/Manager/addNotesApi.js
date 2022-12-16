@@ -1,7 +1,7 @@
 import {post} from "../client"
 
-const AddNotesApi = () => {
-    return post("api/notes/addnote")
+const AddNotesApi = (params) => {
+    return post("api/notes/addnote", params)
 }
 
 export default AddNotesApi
