@@ -1,5 +1,6 @@
-import { GET_ALL_NOTES } from "../action Type/actionType";
+import { GET_ALL_NOTES,ADD_NEW_NOTES } from "../action Type/actionType";
 import getAllNotesApi from "../../api/Manager/getAllNotesApi";
+import AddNotesApi from "../../api/Manager/addNotesApi";
 
 export const getAllNotes = () => {
   return async (dispatch) => {
@@ -22,6 +23,20 @@ export const getAllNotes = () => {
 export const getAllNotesConfirmed = (data) => {
   return {
     type: GET_ALL_NOTES,
+    payload: data,
+  };
+};
+
+
+export const addNewNotes = () => {
+  return async() => {
+const res = await AddNotesApi()
+  }
+}
+
+export const addNewNotesConfirmed = (data) => {
+  return {
+    type: ADD_NEW_NOTES,
     payload: data,
   };
 };

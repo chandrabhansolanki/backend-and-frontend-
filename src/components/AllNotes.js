@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { getAllNotes } from "../Redux/action/NotesAction";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Header from "./Header";
 import { useNavigate } from "react-router-dom";
+import Notes from "./Notes";
 
 const AllNotes = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [notes, setNotes] = useState();
-  const state = useSelector((state) => state?.NotesReducer?.AllNotes);
+  const [notes, setNotes] = useState({
+    title: "",
+    descrption: "",
+    tag: "",
+  });
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -18,19 +22,29 @@ const AllNotes = () => {
     }
   }, []);
 
-  //   const getNotes = () => {
+  const addNotes = (e) => {
+    const { name, value } = e.target;
+    console.log(name,value);
+    setNotes({ ...notes, [name]: value });
+  };
 
-  //   };
+  const SubmitNotes = (e) => {
+    e.preventDefault()
+    dispatch()
+  }
 
   return (
     <div className="container my-3">
-      <form>
+      <form onSubmit={SubmitNotes}>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">
             Title
           </label>
           <input
             type="text"
+            name="title"
+            value={notes.title}
+            onChange={addNotes}
             className="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
@@ -44,6 +58,9 @@ const AllNotes = () => {
             type="text"
             className="form-control"
             id="exampleInputPassword1"
+            name="descrption"
+            value={notes.descrption}
+            onChange={addNotes}
           />
         </div>
         <div className="mb-3">
@@ -54,6 +71,9 @@ const AllNotes = () => {
             type="text"
             className="form-control"
             id="exampleInputPassword1"
+            name="tag"
+            value={notes.tag}
+            onChange={addNotes}
           />
         </div>
         <button type="submit" className="btn btn-primary">
@@ -61,16 +81,7 @@ const AllNotes = () => {
         </button>
       </form>
 
-      <div>
-        {state.map((note) => {
-         return ( 
-         <ul>
-            <li>{note?.title}</li>
-            <li>{note?.description}</li>
-            <li>{note?.tag}</li>
-          </ul>);
-        })}
-      </div>
+      <Notes />
     </div>
   );
 };
