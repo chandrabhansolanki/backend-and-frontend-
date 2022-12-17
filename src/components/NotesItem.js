@@ -4,14 +4,10 @@ import { deleteNotes } from "../Redux/action/NotesAction";
 
 const NotesItem = (props) => {
   const dispatch = useDispatch()
-  const { note } = props;
+  const { note ,editNoteHandler} = props;
 
   const deleteNoteHandler = (id) => {
     dispatch(deleteNotes(id))
-  }
-
-  const editNoteHandler = () => {
-    dispatch()
   }
 
   return (
@@ -21,7 +17,7 @@ const NotesItem = (props) => {
           <h5 className="card-title">{note.title}</h5>
           <p className="card-text">{note.description}</p>
           <p className="card-text">{note.tag}</p>
-          <button className="mx-2" onClick={()=> editNoteHandler()}>Edit</button>
+          <button className="mx-2" onClick={()=> editNoteHandler(note._id)}>Edit</button>
           <button onClick={() => deleteNoteHandler(note._id)}>Delete</button>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { GET_ALL_NOTES, ADD_NEW_NOTES } from "../action Type/actionType";
+import { GET_ALL_NOTES, ADD_NEW_NOTES, EDIT_NOTE } from "../action Type/actionType";
 
 const initialState = {
     AllNotes : []

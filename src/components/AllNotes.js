@@ -24,7 +24,6 @@ const AllNotes = () => {
 
   const addNotes = (e) => {
     const { name, value } = e.target;
-    console.log(name,value);
     setNotes({ ...notes, [name]: value });
   };
 
@@ -34,7 +33,7 @@ const AllNotes = () => {
     setNotes({title: "",description:"",tag: ""})
   }
 
-  
+
 
   return (
     <div className="container my-3">
