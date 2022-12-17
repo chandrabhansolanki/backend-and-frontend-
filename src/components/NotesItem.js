@@ -1,5 +1,19 @@
+import React from "react"
+import { useDispatch } from "react-redux";
+import { deleteNotes } from "../Redux/action/NotesAction";
+
 const NotesItem = (props) => {
+  const dispatch = useDispatch()
   const { note } = props;
+
+  const deleteNoteHandler = (id) => {
+    dispatch(deleteNotes(id))
+  }
+
+  const editNoteHandler = () => {
+    dispatch()
+  }
+
   return (
     <div className="col-md-3">
       <div className="card my-2">
@@ -7,8 +21,8 @@ const NotesItem = (props) => {
           <h5 className="card-title">{note.title}</h5>
           <p className="card-text">{note.description}</p>
           <p className="card-text">{note.tag}</p>
-          <button className="mx-2">Edit</button>
-          <button>Delete</button>
+          <button className="mx-2" onClick={()=> editNoteHandler()}>Edit</button>
+          <button onClick={() => deleteNoteHandler(note._id)}>Delete</button>
         </div>
       </div>
     </div>

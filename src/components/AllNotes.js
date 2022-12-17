@@ -31,7 +31,10 @@ const AllNotes = () => {
   const SubmitNotes = (e) => {
     e.preventDefault()
     dispatch(addNewNotes(notes))
+    setNotes({title: "",description:"",tag: ""})
   }
+
+  
 
   return (
     <div className="container my-3">
