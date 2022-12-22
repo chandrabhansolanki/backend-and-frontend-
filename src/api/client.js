@@ -12,7 +12,8 @@ class ApiClient {
   }
   _getClient() {
     apiClient = axios.create({
-      baseURL: "http://localhost:5000/",
+      // old base url = "http://localhost:5000/"
+      baseURL: "https://notebookbackend-production.up.railway.app/",
     });
     apiClient.interceptors.request.use(
       async (config) => {
